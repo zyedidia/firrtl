@@ -112,13 +112,14 @@ object CInferTypes extends Pass {
 
     def infer_types_e(types: TypeLookup)(e: Expression): Expression =
       e.map(infer_types_e(types)) match {
-        case (e: Reference) => e.copy(tpe = types.getOrElse(e.name, UnknownType))
-        case (e: SubField)  => e.copy(tpe = field_type(e.expr.tpe, e.name))
-        case (e: SubIndex)  => e.copy(tpe = sub_type(e.expr.tpe))
-        case (e: SubAccess) => e.copy(tpe = sub_type(e.expr.tpe))
-        case (e: DoPrim)    => PrimOps.set_primop_type(e)
-        case (e: Mux)       => e.copy(tpe = mux_type(e.tval, e.fval))
-        case (e: ValidIf)   => e.copy(tpe = e.value.tpe)
+        case (e: Reference)     => e.copy(tpe = types.getOrElse(e.name, UnknownType))
+        case (e: SubField)      => e.copy(tpe = field_type(e.expr.tpe, e.name))
+        case (e: SubIndex)      => e.copy(tpe = sub_type(e.expr.tpe))
+        case (e: SubAccess)     => e.copy(tpe = sub_type(e.expr.tpe))
+        case (e: DoPrim)        => PrimOps.set_primop_type(e)
+        case (e: Mux)           => e.copy(tpe = mux_type(e.tval, e.fval))
+        case (e: ValidIf)       => e.copy(tpe = e.value.tpe)
+        case (e: SubRangeIndex) => throw new ParserException("subword assignment is not supported!")
         case e @ (_: UIntLiteral | _: SIntLiteral) => e
       }
 
