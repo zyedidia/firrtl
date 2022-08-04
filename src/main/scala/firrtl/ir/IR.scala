@@ -403,6 +403,18 @@ case class SubIndex(expr: Expression, value: Int, tpe: Type, flow: Flow = Unknow
   def foreachWidth(f: Width => Unit):            Unit = ()
 }
 
+case class SubRangeIndex(expr: Expression, hi: Int, lo: Int, tpe: Type, flow: Flow = UnknownFlow)
+    extends Expression
+    with UseSerializer
+    with RefLikeExpression {
+  def mapExpr(f:      Expression => Expression): Expression = this.copy(expr = f(expr))
+  def mapType(f:      Type => Type):             Expression = this.copy(tpe = f(tpe))
+  def mapWidth(f:     Width => Width):           Expression = this
+  def foreachExpr(f:  Expression => Unit):       Unit = f(expr)
+  def foreachType(f:  Type => Unit):             Unit = f(tpe)
+  def foreachWidth(f: Width => Unit):            Unit = ()
+}
+
 case class SubAccess(expr: Expression, index: Expression, tpe: Type, flow: Flow = UnknownFlow)
     extends Expression
     with UseSerializer

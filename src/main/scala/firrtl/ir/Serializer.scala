@@ -76,6 +76,7 @@ object Serializer {
       b ++= "UInt"; s(width); b ++= "(\"h"; b ++= value.toString(16); b ++= "\")"
     case SubField(expr, name, _, _)   => s(expr); b += '.'; b ++= name
     case SubIndex(expr, value, _, _)  => s(expr); b += '['; b ++= value.toString; b += ']'
+    case SubRangeIndex(expr, hi, lo, _, _)  => s(expr); b += '['; b ++= hi.toString; b += ':'; b ++= lo.toString; b += ']'
     case SubAccess(expr, index, _, _) => s(expr); b += '['; s(index); b += ']'
     case Mux(cond, tval, fval, _) =>
       b ++= "mux("; s(cond); b ++= ", "; s(tval); b ++= ", "; s(fval); b += ')'
