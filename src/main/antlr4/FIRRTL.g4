@@ -37,7 +37,7 @@ version
   ;
 
 semver
-  : Number '.' Number '.' Number
+  : .+? // tried to use Number '.' Number '.' Number here, but it didn't work?
   ;
 
 module
@@ -383,7 +383,7 @@ BinaryDigit
   ;
 
 Number
-  : Digit+
+  : [0-9]+
   ;
 
 StringLit
