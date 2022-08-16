@@ -19,5 +19,5 @@ object RemoveEmpty extends Pass with DependencyAPIMigration {
       case m: ExtModule => m
     }
   }
-  def run(c: Circuit): Circuit = Circuit(c.info, c.modules.map(onModule), c.main)
+  def run(c: Circuit): Circuit = Circuit(c.info, c.modules.map(onModule), c.main, c.version)
 }

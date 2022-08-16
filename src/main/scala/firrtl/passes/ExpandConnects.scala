@@ -90,6 +90,6 @@ object ExpandConnects extends Pass {
       case (m: ExtModule) => m
       case (m: Module)    => expand_connects(m)
     }
-    Circuit(c.info, modulesx, c.main)
+    Circuit(c.info, modulesx, c.main, c.version)
   }
 }

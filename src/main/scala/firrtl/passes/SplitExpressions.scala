@@ -86,6 +86,6 @@ object SplitExpressions extends Pass {
       case m: Module    => onModule(m)
       case m: ExtModule => m
     }
-    Circuit(c.info, modulesx, c.main)
+    Circuit(c.info, modulesx, c.main, c.version)
   }
 }

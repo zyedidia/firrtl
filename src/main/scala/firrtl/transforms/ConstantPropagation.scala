@@ -909,7 +909,7 @@ class ConstantPropagation extends Transform with RegisteredTransform with Depend
       c.modules.map(m => mmap.getOrElse(m.OfModule, m))
     }
 
-    Circuit(c.info, modulesx, c.main)
+    Circuit(c.info, modulesx, c.main, c.version)
   }
 
   def execute(state: CircuitState): CircuitState = {

@@ -100,7 +100,7 @@ sealed trait ExprGenParams {
     */
   def generateSingleExprCircuit[G[_]: GenMonad](): Circuit = {
     exprMod.map { m =>
-      Circuit(NoInfo, Seq(m), m.name)
+      Circuit(NoInfo, Seq(m), m.name, Version(None))
     }.run(this).map(_._2).generate()
   }
 }

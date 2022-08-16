@@ -363,7 +363,7 @@ object Uniquify extends Transform with DependencyAPIMigration {
     }
 
     sinfo = c.info
-    val result = Circuit(c.info, c.modules.map(uniquifyPorts(renames)).map(uniquifyModule(renames)), c.main)
+    val result = Circuit(c.info, c.modules.map(uniquifyPorts(renames)).map(uniquifyModule(renames)), c.main, c.version)
     state.copy(circuit = result, renames = Some(renames))
   }
 }

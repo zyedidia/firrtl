@@ -27,7 +27,7 @@ sealed abstract class FirrtlEmitter(form: Seq[TransformDependency], val outputSu
           case Module(info, name, ports, _) => ExtModule(info, name, ports, name, Seq.empty)
           case ext: ExtModule => ext
         }
-        val newCircuit = Circuit(m.info, extModules :+ m, m.name)
+        val newCircuit = Circuit(m.info, extModules :+ m, m.name, circuit.version)
         EmittedFirrtlModule(m.name, newCircuit.serialize, outputSuffix)
     }
   }

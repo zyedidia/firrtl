@@ -57,6 +57,6 @@ object PullMuxes extends Pass {
       case (m: Module)    => Module(m.info, m.name, m.ports, pull_muxes(m.body))
       case (m: ExtModule) => m
     }
-    Circuit(c.info, modulesx, c.main)
+    Circuit(c.info, modulesx, c.main, c.version)
   }
 }

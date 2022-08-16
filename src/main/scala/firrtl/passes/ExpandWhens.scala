@@ -46,7 +46,7 @@ object ExpandWhens extends Pass {
       case m: ExtModule => m
       case m: Module    => onModule(m)
     }
-    Circuit(c.info, modulesx, c.main)
+    Circuit(c.info, modulesx, c.main, c.version)
   }
 
   /** Maps an expression to a declared node name. Used to memoize predicates */

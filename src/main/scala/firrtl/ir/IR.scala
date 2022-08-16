@@ -30,6 +30,17 @@ case object NoInfo extends Info {
   def ++(that: Info): Info = that
 }
 
+case class Version(semver: Option[String]) extends FirrtlNode with UseSerializer {
+  override def toString: String = semver match {
+    case Some(v) => "FIRRTL Version " + v
+    case None => ""
+  }
+  def get: String = semver match {
+    case Some(v) => v
+    case None => ""
+  }
+}
+
 /** Stores the string of a file info annotation in its escaped form. */
 case class FileInfo(escaped: String) extends Info {
   override def toString: String = " @[" + escaped + "]"
@@ -1228,7 +1239,7 @@ case class ExtModule(
   def foreachInfo(f:   Info => Unit):           Unit = f(info)
 }
 
-case class Circuit(info: Info, modules: Seq[DefModule], main: String)
+case class Circuit(info: Info, modules: Seq[DefModule], main: String, version: Version)
     extends FirrtlNode
     with HasInfo
     with UseSerializer {

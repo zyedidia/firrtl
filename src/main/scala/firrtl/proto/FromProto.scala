@@ -399,6 +399,6 @@ object FromProto {
     require(c.getTopCount == 1, "Only 1 top is currently supported")
     val modules = c.getModuleList.asScala.map(convert(_)).toSeq
     val top = c.getTop(0).getName
-    ir.Circuit(ir.NoInfo, modules, top)
+    ir.Circuit(ir.NoInfo, modules, top, ir.Version(None))
   }
 }

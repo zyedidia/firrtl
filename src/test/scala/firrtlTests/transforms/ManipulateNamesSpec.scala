@@ -57,7 +57,7 @@ class ManipulateNamesSpec extends AnyFlatSpec with Matchers {
     val state = CircuitState(Parser.parse(input), Seq.empty)
     val statex = tm.execute(state)
     val expected: Seq[PartialFunction[Any, Boolean]] = Seq(
-      { case ir.Circuit(_, _, "prefix_Foo") => true },
+      { case ir.Circuit(_, _, "prefix_Foo", _) => true },
       { case ir.Module(_, "prefix_Foo", _, _) => true },
       { case ir.Module(_, "prefix_Bar", _, _) => true }
     )
@@ -75,7 +75,7 @@ class ManipulateNamesSpec extends AnyFlatSpec with Matchers {
     val annotations = Seq(ManipulateNamesBlocklistAnnotation(Seq(Seq(`~Foo|Foo`)), Dependency[AddPrefix]))
     val state = CircuitState(Parser.parse(input), annotations)
     val expected: Seq[PartialFunction[Any, Boolean]] = Seq(
-      { case ir.Circuit(_, _, "Foo") => true },
+      { case ir.Circuit(_, _, "Foo", _) => true },
       { case ir.Module(_, "Foo", _, _) => true },
       { case ir.Module(_, "prefix_Bar", _, _) => true }
     )
@@ -111,7 +111,7 @@ class ManipulateNamesSpec extends AnyFlatSpec with Matchers {
     val state = CircuitState(Parser.parse(input), annotations)
     val statex = tm.execute(state)
     val expected: Seq[PartialFunction[Any, Boolean]] = Seq(
-      { case ir.Circuit(_, _, "prefix_Foo") => true },
+      { case ir.Circuit(_, _, "prefix_Foo", _) => true },
       { case ir.Module(_, "prefix_Foo", _, _) => true },
       { case ir.DefInstance(_, "bar", "Bar", _) => true },
       { case ir.DefInstance(_, "bar2", "Bar", _) => true },
@@ -129,7 +129,7 @@ class ManipulateNamesSpec extends AnyFlatSpec with Matchers {
     val state = CircuitState(Parser.parse(input), annotations)
     val statex = tm.execute(state)
     val expected: Seq[PartialFunction[Any, Boolean]] = Seq(
-      { case ir.Circuit(_, _, "Foo") => true },
+      { case ir.Circuit(_, _, "Foo", _) => true },
       { case ir.Module(_, "Foo", _, _) => true },
       { case ir.DefInstance(_, "prefix_bar", "Bar", _) => true },
       { case ir.DefInstance(_, "bar2", "Bar", _) => true },
@@ -147,7 +147,7 @@ class ManipulateNamesSpec extends AnyFlatSpec with Matchers {
     val state = CircuitState(Parser.parse(input), annotations)
     val statex = tm.execute(state)
     val expected: Seq[PartialFunction[Any, Boolean]] = Seq(
-      { case ir.Circuit(_, _, "Foo") => true },
+      { case ir.Circuit(_, _, "Foo", _) => true },
       { case ir.Module(_, "Foo", _, _) => true },
       { case ir.DefInstance(_, "bar", "Bar", _) => true },
       { case ir.DefInstance(_, "bar2", "Bar", _) => true },
@@ -180,7 +180,7 @@ class ManipulateNamesSpec extends AnyFlatSpec with Matchers {
     override val tm = new firrtl.stage.transforms.Compiler(Seq(Dependency[AddPrefix], Dependency[AddSuffix]))
     val statex = tm.execute(state)
     val expected: Seq[PartialFunction[Any, Boolean]] = Seq(
-      { case ir.Circuit(_, _, "prefix_Foo") => true },
+      { case ir.Circuit(_, _, "prefix_Foo", _) => true },
       { case ir.Module(_, "prefix_Foo", _, _) => true },
       { case ir.DefInstance(_, "prefix_bar", "prefix_Bar", _) => true },
       { case ir.DefInstance(_, "prefix_bar2", "prefix_Bar", _) => true },

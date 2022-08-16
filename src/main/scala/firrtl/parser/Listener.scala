@@ -14,6 +14,7 @@ import scala.concurrent.duration.Duration
 private[firrtl] class Listener(infoMode: InfoMode) extends FIRRTLBaseListener {
   private var main: Option[String] = None
   private var info: Option[Info] = None
+  private var version: Option[Version] = None
   private val modules = mutable.ArrayBuffer.empty[DefModule]
 
   private val visitor = new Visitor(infoMode)
@@ -27,12 +28,13 @@ private[firrtl] class Listener(infoMode: InfoMode) extends FIRRTLBaseListener {
   override def exitCircuit(ctx: FIRRTLParser.CircuitContext): Unit = {
     info = Some(visitor.visitInfo(Option(ctx.info), ctx))
     main = Some(ctx.id.getText)
+    version = Some(visitor.visitVersion(Option(ctx.version), ctx))
     ctx.children = null // Null out to save memory
   }
 
   def getCircuit: Circuit = {
     require(main.nonEmpty)
     val mods = modules.toSeq
-    Circuit(info.get, mods, main.get)
+    Circuit(info.get, mods, main.get, version.get)
   }
 }

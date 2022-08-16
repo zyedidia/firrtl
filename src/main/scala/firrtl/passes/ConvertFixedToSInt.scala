@@ -130,7 +130,7 @@ object ConvertFixedToSInt extends Pass {
     newModules.foreach(m => moduleTypes(m.name) = module_type(m))
 
     /* @todo This should be moved outside */
-    (firrtl.passes.InferTypes).run(Circuit(c.info, newModules.map(onModule(_)), c.main))
+    (firrtl.passes.InferTypes).run(Circuit(c.info, newModules.map(onModule(_)), c.main, c.version))
   }
 }
 

@@ -80,7 +80,7 @@ class LetterCaseTransformSpec extends AnyFlatSpec with Matchers {
     val tm = new firrtl.stage.transforms.Compiler(Seq(firrtl.options.Dependency[LowerCaseNames]))
     val statex = tm.execute(state)
     val expected: Seq[PartialFunction[Any, Boolean]] = Seq(
-      { case ir.Circuit(_, _, "foo") => true },
+      { case ir.Circuit(_, _, "foo", _) => true },
       {
         case ir
               .Module(_, "foo", Seq(ir.Port(_, "clk", _, _), ir.Port(_, "rst_p", _, _), ir.Port(_, "addr", _, _)), _) =>
@@ -140,7 +140,7 @@ class LetterCaseTransformSpec extends AnyFlatSpec with Matchers {
     val tm = new firrtl.stage.transforms.Compiler(Seq(firrtl.options.Dependency[UpperCaseNames]))
     val statex = tm.execute(state)
     val expected: Seq[PartialFunction[Any, Boolean]] = Seq(
-      { case ir.Circuit(_, _, "FOO") => true },
+      { case ir.Circuit(_, _, "FOO", _) => true },
       {
         case ir
               .Module(_, "FOO", Seq(ir.Port(_, "CLK", _, _), ir.Port(_, "RST_P", _, _), ir.Port(_, "ADDR", _, _)), _) =>

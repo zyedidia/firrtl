@@ -253,7 +253,8 @@ object Serializer {
   }
 
   private def s(node: Circuit)(implicit b: StringBuilder, indent: Int): Unit = node match {
-    case Circuit(info, modules, main) =>
+    case Circuit(info, modules, main, version) =>
+      b ++= version.toString + "\n"
       b ++= "circuit "; b ++= main; b ++= " :"; s(info)
       if (modules.nonEmpty) {
         newLineNoIndent(); s(modules.head)(b, indent + 1)

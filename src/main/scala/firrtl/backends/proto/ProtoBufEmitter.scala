@@ -72,7 +72,7 @@ sealed abstract class ProtoBufEmitter(prereqs: Seq[TransformDependency])
           case Module(info, name, ports, _) => ExtModule(info, name, ports, name, Seq.empty)
           case ext: ExtModule => ext
         }
-        val newCircuit = Circuit(m.info, extModules :+ m, m.name)
+        val newCircuit = Circuit(m.info, extModules :+ m, m.name, circuit.version)
         Annotation.ProtoBufSerialization(newCircuit, Some(outputSuffix))
     }
   }

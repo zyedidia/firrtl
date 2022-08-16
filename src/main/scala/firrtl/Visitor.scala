@@ -58,6 +58,13 @@ class Visitor(infoMode: InfoMode) extends AbstractParseTreeVisitor[FirrtlNode] w
 
   private def string2Int(s: String): Int = string2BigInt(s).toInt
 
+  private[firrtl] def visitVersion(ctx: Option[VersionContext], parentCtx: ParserRuleContext): Version = {
+    ctx match {
+      case Some(c) => Version(Some(c.semver.getText))
+      case None => Version(None)
+    }
+  }
+
   private[firrtl] def visitInfo(ctx: Option[InfoContext], parentCtx: ParserRuleContext): Info = {
     // Convert a compressed FileInfo string into either into a singular FileInfo or a MultiInfo
     // consisting of several FileInfos
@@ -128,7 +135,7 @@ class Visitor(infoMode: InfoMode) extends AbstractParseTreeVisitor[FirrtlNode] w
   }
 
   private def visitCircuit(ctx: CircuitContext): Circuit =
-    Circuit(visitInfo(Option(ctx.info), ctx), ctx.module.asScala.map(visitModule).toSeq, ctx.id.getText)
+    Circuit(visitInfo(Option(ctx.info), ctx), ctx.module.asScala.map(visitModule).toSeq, ctx.id.getText, visitVersion(Option(ctx.version), ctx))
 
   private[firrtl] def visitModule(ctx: ModuleContext): DefModule = {
     val info = visitInfo(Option(ctx.info), ctx)

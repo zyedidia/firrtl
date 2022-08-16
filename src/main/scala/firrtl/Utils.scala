@@ -1002,7 +1002,7 @@ object Utils extends LazyLogging {
       found.head
     }
     val res = deduped.collect { case Right(m) => m }
-    ir.Circuit(NoInfo, top +: res.toSeq, top.name)
+    ir.Circuit(NoInfo, top +: res.toSeq, top.name, circuits(0).version)
   }
 
   object True {
