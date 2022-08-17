@@ -29,7 +29,7 @@ import firrtl.LexerHelper;
 
 // Does there have to be at least one module?
 circuit
-  : version? 'circuit' id ':' info? INDENT module* DEDENT EOF
+  : version? NEWLINE* 'circuit' id ':' info? INDENT module* DEDENT EOF
   ;
 
 version
@@ -37,7 +37,7 @@ version
   ;
 
 semver
-  : .+? // tried to use Number '.' Number '.' Number here, but it didn't work?
+  : .+?
   ;
 
 module
@@ -380,10 +380,6 @@ OctalDigit
 fragment
 BinaryDigit
   : [01]
-  ;
-
-Number
-  : [0-9]+
   ;
 
 StringLit
