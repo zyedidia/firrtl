@@ -37,7 +37,7 @@ version
   ;
 
 semver
-  : .+?
+  : DoubleLit '.' .+?
   ;
 
 module

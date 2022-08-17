@@ -12,8 +12,8 @@ import scala.concurrent.{Await, Future}
 import scala.concurrent.duration.Duration
 
 private[firrtl] class Listener(infoMode: InfoMode) extends FIRRTLBaseListener {
-  private var main: Option[String] = None
-  private var info: Option[Info] = None
+  private var main:    Option[String] = None
+  private var info:    Option[Info] = None
   private var version: Option[Version] = None
   private val modules = mutable.ArrayBuffer.empty[DefModule]
 

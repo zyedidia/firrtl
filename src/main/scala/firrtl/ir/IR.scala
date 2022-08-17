@@ -33,11 +33,11 @@ case object NoInfo extends Info {
 case class Version(semver: Option[String]) extends FirrtlNode with UseSerializer {
   override def toString: String = semver match {
     case Some(v) => "FIRRTL version " + v
-    case None => ""
+    case None    => ""
   }
   def get: String = semver match {
     case Some(v) => v
-    case None => ""
+    case None    => ""
   }
 }
 
